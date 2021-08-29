@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  go_fiber:
+    build:
+      # context: ./fiber_server
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: go_fiber
+    image: go_fiber:tag
+    restart: unless-stopped
+    # imports the file that is located from the root of
+    # the docker-compose.yml and use .env variables
+    env_file:
+      - .env
+    ports:
+      - ${GOLANG_PORT}:${GOLANG_PORT}
+    depends_on:
+      - db
+    links:
+      - db
+    expose:
+      - ${GOLANG_PORT}
+
+  db:
+    container_name: db
+    image: "postgres:latest"
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${HOST_PORT}:${HOST_PORT}
+    volumes:
+      - postgres-pgdata:${PGDATA}
+    expose:
+      - ${HOST_PORT}
+
+volumes:
+  postgres-pgdata:
+    driver: local
+    # define the name of the volume, so that it wouldn't
+    # change when the folder of the project changes
+    name: pgdata
