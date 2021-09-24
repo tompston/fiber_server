@@ -26,10 +26,9 @@ RUN apk --no-cache add ca-certificates
 # WORKDIR /opt/gofiber-app
 WORKDIR /opt/gofiber_server
 
-# Copy the Pre-built binary file from the previous stage. Observe we also copied the .env file
+# Copy the Pre-built binary file from the previous stage. + .env file
 COPY --from=builder /app/main .
 COPY --from=builder /app/.env .       
-# COPY --from=builder /app/dist .    
 
 #Command to run the executable
 CMD ["./main"]

@@ -6,6 +6,7 @@ import (
 	"fiber_server/controllers/userController"
 	"fiber_server/middleware"
 	"fiber_server/settings/database"
+	"fiber_server/utils/auth"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -38,6 +39,9 @@ func Url(app *fiber.App) {
 	api.Post("/posts/create", postController.PostsCreate)
 	api.Get("/users/:id/posts", postController.PostsGetByAuthorId)
 	api.Get("/posts/:id", postController.PostsGetById)
+
+	// routes for oauth
+	auth.OauthConfig(app) // oauth2 setup with goth_fiber, need to finish
 
 }
 

@@ -2,9 +2,7 @@
 
 ## Current setup
 
-- docker-compose version for deployment
-
-  - Not tested on a real server. Need to configure more
+- docker-compose example
 
 - Ent ORM
   - Model for user (Located in ./ent/schema/user.go)
@@ -31,17 +29,14 @@
 
 ### Locally
 
-        1. change the .env.example to .env and define the variables
-        2. go get github.com/pilu/fresh && go mod download
-        3. fresh
-        4. import the postman json file to use the api
+        go get github.com/pilu/fresh && go mod download
+        fresh
+        # + import the postman json file to use the api more easily
         # possibly need to visit http://localhost:3000/migrate to migrate the db
 
 ### Production
 
-        # not tested, most probably errors. Fix later
-        1. change the .env.example to .env and define the variables
-        2. docker-compose up -d
+        docker-compose up -d
 
 # Notes for Ent
 
@@ -76,10 +71,6 @@
 ## Todos
 
 - Change all routes to have the predefined respose
-
-- Test the docker-container version later in vm
-- Write down how to cd into the psql shell from docker
-  <!-- https://stackoverflow.com/questions/27673563/how-to-get-into-psql-of-a-running-postgres-container -->
 - Test the routes to check possible errors. Especially the auth stuff
 - Figure out how to pass the time as a env variable in settings.go
-- Check out the ent graphql extenstion + blog posts
+- switch from ent to sqlc, maybe

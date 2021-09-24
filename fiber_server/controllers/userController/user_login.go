@@ -7,8 +7,6 @@ import (
 	"fiber_server/utils/auth"
 	"fiber_server/utils/response"
 
-	"fmt"
-
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -38,28 +36,28 @@ func UsersLogin(c *fiber.Ctx) error {
 	}
 	// check if the required fields are not empty.
 	if payload.Username == "" {
-		return c.SendString("No username given!")
+		return response.ResponseError(c, nil, "No username given!")
 	}
 	if payload.Password == "" {
-		return c.SendString("No password given!")
+		return response.ResponseError(c, nil, "No password given!")
 	}
 
 	// proceed with finding user
 	client, err := database.GetDbConnEnt()
 
 	if err != nil {
-		return c.SendString(err.Error())
+		return response.ResponseError(c, nil, err.Error())
 	}
 
 	user, err := client.User.Query().Where(user.Username(payload.Username)).Only(context.Background())
 	if err != nil {
-		return c.SendString(err.Error())
+		return response.ResponseError(c, nil, err.Error())
 	}
 
 	// check if the sent password matches the hashed password that is stored in the db
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password)); err != nil {
 		c.Status(fiber.StatusBadRequest)
-		return c.Status(403).JSON(fiber.Map{"message": "Incorrect password!"})
+		return response.ResponseUnauthenticated(c, nil, "Incorrect password!")
 	}
 
 	// if the passwords match, -> generate the access and refresh jwt cookies
@@ -67,7 +65,7 @@ func UsersLogin(c *fiber.Ctx) error {
 	auth.GenerateRefreshCookies(user.Username, int64(user.ID), c)
 
 	if err != nil {
-		fmt.Println("Error")
+		return response.ResponseError(c, nil, err.Error())
 	}
 
 	defer client.Close()

@@ -60,23 +60,17 @@ func UsersRegister(c *fiber.Ctx) error {
 
 // example of an ent create controller that does not hash the password
 // func UsersCreate(c *fiber.Ctx) error {
-
 // 	client, err := database.GetDbConnEnt()
-
 // 	if err != nil {
 // 		log.Fatal(err)
 // 	}
-
 // 	user, err := client.User.Create().
 // 		SetUsername("my_username").
 // 		SetPassword("my_password").
 // 		Save(context.Background())
-
 // 	if err != nil {
 // 		return response.ResponseError(c, nil, err.Error())
 // 	}
-
 // 	defer client.Close()
-
 // 	return response.ResponseSuccess(c, user, "User Created!")
 // }

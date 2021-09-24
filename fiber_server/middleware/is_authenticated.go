@@ -8,7 +8,7 @@ import (
 )
 
 // Middleware that checks if the user is authenticated
-// If unauthenticated (meaning if the jwt stored in the cookie is not valid), returns unauthendicated response
+// If unauthenticated (meaning if the jwt stored in the cookie is not valid), returns unauthenticated response
 func IsAuth(c *fiber.Ctx) error {
 
 	is_authenticated, err := auth.IsAuthenticated(c)
