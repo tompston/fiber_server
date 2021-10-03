@@ -34,7 +34,7 @@
         # + import the postman json file to use the api more easily
         # possibly need to visit http://localhost:3000/migrate to migrate the db
 
-### Production
+### Using Docker
 
         docker-compose up -d
 
