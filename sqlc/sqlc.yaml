@@ -1,0 +1,13 @@
+version: 1
+packages:
+  # name of  the dir / package that holds the generated functions for executing the queries
+  - path: "sqlc"
+    # path to the the file that holds all of the schemas
+    schema: "./sql/schemas/"
+    # path to the the file that holds all of the queries of the schema
+    queries: "./sql/queries/"
+    # db type that will be used
+    engine: "postgresql"
+    # add the json field to the generated structs 
+    #   name will match the one that you use in the sql tables
+    emit_json_tags: true
