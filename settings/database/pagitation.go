@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// main struct that holds all of the info needed for the controller
 type PagitationParams struct {
 	CurrPageNum string
 	NextPageNum int
@@ -34,15 +35,15 @@ func PageQueryString(x string) string {
 
 func GetPagitationParams(c *fiber.Ctx, BASE string) (PagitationParams, error) {
 	// get the value of PageQuery url param
-	page := c.Query("page")
+	curr_page := c.Query("page")
 
 	// if there is an API request that does not have the query, like "http://localhost:5000/api/post/" ,
 	// assign it to be a string-int which can be converted into an int, so that there is no error
-	if page == "" {
-		page = "0"
+	if curr_page == "" {
+		curr_page = "0"
 	}
 
-	page_num, err := strconv.Atoi(page)
+	page_num, err := strconv.Atoi(curr_page)
 	// if the provided query number is negative, we avoid sql error by assigning / correcting it to be 0
 	if page_num < 0 {
 		page_num = 0
@@ -60,17 +61,17 @@ func GetPagitationParams(c *fiber.Ctx, BASE string) (PagitationParams, error) {
 	offset_32 := limit_32 * page_num_32
 
 	// calculate the next page + prev page int
-	prev_page_num := page_num - 1
-	next_page_num := page_num + 1
+	prev_page := page_num - 1
+	next_page := page_num + 1
 
 	// generate the links
-	pagitation := GeneratePagitationLinks(BASE, prev_page_num, page_num, next_page_num)
+	pagitation := GeneratePagitationLinks(BASE, prev_page, page_num, next_page)
 
 	// return the struct that will have all of the needed information for the controller
 	pag_params := PagitationParams{
-		CurrPageNum:     page,
-		NextPageNum:     next_page_num,
-		PrevPageNum:     prev_page_num,
+		CurrPageNum:     curr_page,
+		NextPageNum:     next_page,
+		PrevPageNum:     prev_page,
 		Limit:           limit_32,
 		Offset:          offset_32,
 		PagitationLinks: pagitation,

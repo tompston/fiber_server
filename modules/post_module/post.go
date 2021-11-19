@@ -22,12 +22,10 @@ func CreatePost(c *fiber.Ctx) error {
 	// define the struct that you want to get from the client
 	payload := new(PostParams)
 	if err := c.BodyParser(payload); err != nil {
-		return res.ResponseError(c, err.Error(), "")
+		return res.ResponseError(c, nil, err.Error())
 	}
-	errors := validate.ValidateStruct(*payload)
-	// if the submitted struct doesn't pass validation, return the error response
-	if errors != nil {
-		return res.ResponseError(c, errors, "")
+	if err := validate.NewValidator().Struct(payload); err != nil {
+		return validate.CheckForValidationError(c, err)
 	}
 
 	// assign the new values to the struct from the sqlc package to execute the function

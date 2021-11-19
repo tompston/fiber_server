@@ -45,9 +45,8 @@ func ResponseValidationError(c *fiber.Ctx, data interface{}, message string) err
 	})
 }
 
-// ---
 // Responses with added pagitation struct
-// ---
+
 func ResponseSuccessWithPagitation(c *fiber.Ctx, data interface{}, pagitaion interface{}, message string) error {
 	return c.Status(200).JSON(fiber.Map{
 		"status":  200,

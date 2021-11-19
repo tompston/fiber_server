@@ -6,7 +6,7 @@ import (
 	"gofiber_server/sqlc/sqlc"
 	"gofiber_server/utils/auth"
 	res "gofiber_server/utils/response"
-	"gofiber_server/utils/validate"
+	val "gofiber_server/utils/validate"
 
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
@@ -26,9 +26,8 @@ func CreateUser(c *fiber.Ctx) error {
 	if err := c.BodyParser(payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
-	errors := validate.ValidateStruct(*payload)
-	if errors != nil {
-		return res.ResponseError(c, errors, "")
+	if err := val.NewValidator().Struct(payload); err != nil {
+		return val.CheckForValidationError(c, err)
 	}
 
 	hashed_password, err := bcrypt.GenerateFromPassword([]byte(payload.Password), bcrypt.DefaultCost)
@@ -60,16 +59,12 @@ func CreateUser(c *fiber.Ctx) error {
 
 func Login(c *fiber.Ctx) error {
 
-	// define the struct that you want to get from the client
-	// pass it through 2 functions that validate if it is correct. first one validates
-	// if the submitted struct doesn't pass validation, return the error response.
 	payload := new(UserParams)
 	if err := c.BodyParser(payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
-	errors := validate.ValidateStruct(*payload)
-	if errors != nil {
-		return res.ResponseError(c, errors, "")
+	if err := val.NewValidator().Struct(payload); err != nil {
+		return val.CheckForValidationError(c, err)
 	}
 
 	db, err := database.GetDbConnSql()
