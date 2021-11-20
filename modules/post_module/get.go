@@ -4,6 +4,7 @@ import (
 	"context"
 	"gofiber_server/settings/database"
 	"gofiber_server/sqlc/sqlc"
+	"gofiber_server/utils/pagitation"
 	res "gofiber_server/utils/response"
 	"strconv"
 
@@ -18,7 +19,7 @@ func GetAllPosts(c *fiber.Ctx) error {
 	}
 	defer db.Close()
 
-	pag_param, err := database.GetPagitationParams(c, BASE)
+	pag_param, err := pagitation.GetPagitationParams(c, BASE)
 	if err != nil {
 		return res.ResponseError(c, nil, res.PageQueryIsNotIntMessage)
 	}

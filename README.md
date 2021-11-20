@@ -46,5 +46,4 @@ the using_ent branch has an example of ent + docker-compose
 - Check how Keyset Pagination works
 - Implement the full flow for JWT auth.
 - Check the gofiber examples repo, add ouath maybe
-- Move pagitation stuff to a new /utils module?
 - Test the swagger [thing](https://github.com/arsmn/fiber-swagger)

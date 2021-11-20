@@ -9,7 +9,7 @@ import (
 
 var data = ""
 var module_name = "User"
-var BASE = fmt.Sprintf(settings.Config("PAGE_URL") + "/api" + "/user")
+var BASE = fmt.Sprintf(settings.Config("BASE_URL") + "/api" + "/user")
 
 func Routes(app *fiber.App, api fiber.Router) {
 

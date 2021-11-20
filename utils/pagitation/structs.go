@@ -1,0 +1,18 @@
+package pagitation
+
+// main struct that holds all of the info needed for the controller
+type PagitationParams struct {
+	CurrPageNum string
+	NextPageNum int
+	PrevPageNum int
+	Limit       int32
+	Offset      int32
+	PagitationLinks
+}
+
+// struct that will hold the links for the pages
+type PagitationLinks struct {
+	PrevPage string `json:"prev_page"`
+	CurrPage string `json:"curr_page"`
+	NextPage string `json:"next_page"`
+}
