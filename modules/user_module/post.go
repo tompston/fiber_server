@@ -12,22 +12,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// POST example for the struct
 // {
-//     "username": "my-username",
-//     "password": "my-password"
-// }
-func CreateUser(c *fiber.Ctx) error {
+// 	"password": "my-username",
+// 	"username": "my-password"
+//  }
+func RegisterUser(c *fiber.Ctx) error {
 
-	// define the struct that you want to get from the client
-	// pass it through 2 functions that validate if it is correct. first one validates
-	// if the submitted struct doesn't pass validation, return the error response.
 	payload := new(UserParams)
-	if err := c.BodyParser(payload); err != nil {
+	if err := val.ValidatePayload(c, payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
-	}
-	if err := val.NewValidator().Struct(payload); err != nil {
-		return val.CheckForValidationError(c, err)
 	}
 
 	hashed_password, err := bcrypt.GenerateFromPassword([]byte(payload.Password), bcrypt.DefaultCost)
@@ -41,7 +34,7 @@ func CreateUser(c *fiber.Ctx) error {
 		Password: string(hashed_password),
 	}
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, res.FailedDbConnMessage)
 	}
@@ -49,7 +42,7 @@ func CreateUser(c *fiber.Ctx) error {
 
 	data, err := sqlc.New(db).CreateUser(context.Background(), new_user)
 	// as there is a unique constraint on the username field, if an existing username is
-	// submitted, it will cause an error.
+	// submitted, it will cause an error. Refactor this later, maybe edge cases where this is invalid message
 	if err != nil {
 		return res.ResponseError(c, nil, "Username already taken!")
 	}
@@ -57,17 +50,15 @@ func CreateUser(c *fiber.Ctx) error {
 	return res.ResponseSuccess(c, data, res.CreatedMessage(module_name))
 }
 
-func Login(c *fiber.Ctx) error {
+func LoginUser(c *fiber.Ctx) error {
 
 	payload := new(UserParams)
-	if err := c.BodyParser(payload); err != nil {
+	if err := val.ValidatePayload(c, payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
-	if err := val.NewValidator().Struct(payload); err != nil {
-		return val.CheckForValidationError(c, err)
-	}
 
-	db, err := database.GetDbConnSql()
+	// get db connection
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, res.FailedDbConnMessage)
 	}
@@ -75,12 +66,11 @@ func Login(c *fiber.Ctx) error {
 
 	user, err := sqlc.New(db).LoginUser(context.Background(), payload.Username)
 	if (user == sqlc.LoginUserRow{}) {
-		return res.ResponseError(c, nil, res.NotFoundMessage(module_name))
+		return res.ResponseError(c, nil, res.NotFoundOneMessage(module_name))
 	}
 	if err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
-
 	// check if the sent password matches the hashed password that is stored in the db
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password)); err != nil {
 		return res.ResponseUnauthenticated(c, nil, "Incorrect password!")

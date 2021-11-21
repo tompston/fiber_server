@@ -17,7 +17,7 @@ func DeletePost(c *fiber.Ctx) error {
 		return res.ResponseError(c, nil, res.ParamIsNotIntMessage)
 	}
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}

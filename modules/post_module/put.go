@@ -24,16 +24,13 @@ func UpdatePostBody(c *fiber.Ctx) error {
 
 	// define the struct that you want to get from the client
 	payload := new(UpdatePostBodyParams)
-	if err := c.BodyParser(payload); err != nil {
+	if err := validate.ValidatePayload(c, payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
-	}
-	if err := validate.NewValidator().Struct(payload); err != nil {
-		return validate.CheckForValidationError(c, err)
 	}
 
 	updated_post := sqlc.UpdatePostBodyParams{PostBody: payload.PostBody, PostID: payload.PostID}
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, res.FailedDbConnMessage)
 	}
@@ -55,16 +52,13 @@ func UpdatedPostTitle(c *fiber.Ctx) error {
 
 	// define the struct that you want to get from the client
 	payload := new(UpdatePostTitleParams)
-	if err := c.BodyParser(payload); err != nil {
+	if err := validate.ValidatePayload(c, payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
-	}
-	if err := validate.NewValidator().Struct(payload); err != nil {
-		return validate.CheckForValidationError(c, err)
 	}
 
 	updated_post := sqlc.UpdatePostTitleParams{PostTitle: payload.PostTitle, PostID: payload.PostID}
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, res.FailedDbConnMessage)
 	}

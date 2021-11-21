@@ -1,12 +1,16 @@
-# Gofiber REST API example with SQLC
+# Gofiber REST API example with SQLC, JWT, Pagitation and User Registration
 
-- Two api endpoints -> user + post.
+- Two api endpoints -> user + post
+
+- User registration with hashed passwords + JWT cookies on login
 
 - Working pagitation with url query params + limit - offset
+
 - Endpoints documentend in Postman.
-- Validation for the sent json objects.
+
+- Pluggable validation for the sent json objects.
+
 - Predefined responses
-- User registration with hashed passwords + JWT cookies on login
 
 ## How to run
 
@@ -33,7 +37,7 @@ docker
 
 ## Notes
 
-the using_ent branch has an example of ent + docker-compose
+the `using_ent` branch has an example of ent ORM + docker-compose
 
 ## Todos
 
@@ -41,9 +45,8 @@ the using_ent branch has an example of ent + docker-compose
 
 - add constraint to username to check if it doesn't have charaters like '/'. Check regex stuff.
 - add new module -> Comment
-- Check if you can convert the struct validation blocks into a single function that can also pass down any structs.
 - add email field for user?
 - Check how Keyset Pagination works
 - Implement the full flow for JWT auth.
 - Check the gofiber examples repo, add ouath maybe
-- Test the swagger [thing](https://github.com/arsmn/fiber-swagger)
+- check if you can make that postman thing as an editable online version

@@ -16,8 +16,11 @@ func FoundManyMessage(module_name string) string {
 	return fmt.Sprintf(module_name + "s found!")
 }
 
-func NotFoundMessage(module_name string) string {
+func NotFoundOneMessage(module_name string) string {
 	return fmt.Sprintf(module_name + " not found!")
+}
+func NotFoundManyMessage(module_name string) string {
+	return fmt.Sprintf(module_name + "s not found!")
 }
 
 func CreatedMessage(module_name string) string {
@@ -30,12 +33,4 @@ func UpdatedMessage(module_name string) string {
 
 func DeletedMessage(module_name string) string {
 	return fmt.Sprintf(module_name + " deleted!")
-}
-
-//
-func NotFoundOneMessage(module_name string) string {
-	return fmt.Sprintf(module_name + " not found!")
-}
-func NotFoundManyMessage(module_name string) string {
-	return fmt.Sprintf(module_name + "s not found!")
 }

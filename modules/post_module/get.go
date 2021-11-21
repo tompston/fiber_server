@@ -13,7 +13,7 @@ import (
 
 func GetAllPosts(c *fiber.Ctx) error {
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
@@ -35,8 +35,6 @@ func GetAllPosts(c *fiber.Ctx) error {
 	if len(data) == 0 {
 		message = res.NotFoundManyMessage(module_name)
 	}
-	// if the returned array has less values than the limit specified in the .env file, then
-	// that means that there are no more values that can be returned from the query. Thus, no next pages
 	if len(data) < int(pag_param.Limit) {
 		pag_param.PagitationLinks.NextPage = "null"
 	}
@@ -51,7 +49,7 @@ func GetPost(c *fiber.Ctx) error {
 		return res.ResponseError(c, nil, res.ParamIsNotIntMessage)
 	}
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
@@ -59,7 +57,7 @@ func GetPost(c *fiber.Ctx) error {
 
 	data, err := sqlc.New(db).GetPost(context.Background(), int64(id))
 	if err != nil {
-		return res.ResponseError(c, nil, res.NotFoundMessage(module_name))
+		return res.ResponseError(c, nil, res.NotFoundOneMessage(module_name))
 	}
 
 	return res.ResponseSuccess(c, data, res.FoundOneMessage(module_name))
@@ -69,7 +67,7 @@ func GetPostsFromUser(c *fiber.Ctx) error {
 
 	username := c.Params("username")
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}

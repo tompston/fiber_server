@@ -10,7 +10,7 @@ type PagitationParams struct {
 	PagitationLinks
 }
 
-// struct that will hold the links for the pages
+// struct that will hold the generated links for the pages (shown in the api)
 type PagitationLinks struct {
 	PrevPage string `json:"prev_page"`
 	CurrPage string `json:"curr_page"`

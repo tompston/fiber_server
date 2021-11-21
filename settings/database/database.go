@@ -29,7 +29,7 @@ func DsnString() string {
 }
 
 // get a connection with the inbuilt "database/sql" package
-func GetDbConnSql() (*sql.DB, error) {
+func GetDbConn() (*sql.DB, error) {
 
 	dsn := DsnString()
 

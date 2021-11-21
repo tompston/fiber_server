@@ -23,7 +23,6 @@ var RefreshCookieName = "refresh_cookie"
 // }
 // ------------------
 
-// pass the username + user_id to store in the payload
 func GenerateAccessCookie(Username string, UserId int64, c *fiber.Ctx) error {
 
 	AccessTokenExpirationTime := settings.AccessTokenExpirationTime()
@@ -43,7 +42,6 @@ func GenerateAccessCookie(Username string, UserId int64, c *fiber.Ctx) error {
 	}
 
 	access_cookie := GenerateCookie(AccessCookieName, at, AccessTokenExpirationTime, c)
-
 	c.Cookie(&access_cookie) // send cookie to the client
 
 	return err
@@ -69,9 +67,6 @@ func GenerateRefreshCookie(Username string, UserId int64, c *fiber.Ctx) error {
 	}
 
 	refresh_cookie := GenerateCookie(RefreshCookieName, rt, RefreshTokenExpirationTime, c)
-
-	// uncomment 1st line + comment out 2nd line to disable
-	// _ = refresh_cookie
 	c.Cookie(&refresh_cookie)
 
 	if err != nil {

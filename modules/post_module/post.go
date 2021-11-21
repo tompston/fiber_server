@@ -21,26 +21,17 @@ func CreatePost(c *fiber.Ctx) error {
 
 	// define the struct that you want to get from the client
 	payload := new(PostParams)
-	if err := c.BodyParser(payload); err != nil {
+	if err := validate.ValidatePayload(c, payload); err != nil {
 		return res.ResponseError(c, nil, err.Error())
 	}
-	if err := validate.NewValidator().Struct(payload); err != nil {
-		return validate.CheckForValidationError(c, err)
-	}
 
-	// assign the new values to the struct from the sqlc package to execute the function
-	// ----
-	// if jwt cookie auth is implemented, you will
-	// 	  1. add middleware that will check if you're logged in before accessing this route
-	//    2. get the userId from the cookie with this jwt_id, err := auth.RequestUserId(c)
-	// ----
 	new_post := sqlc.CreatePostParams{
 		PostTitle: payload.PostTitle,
 		PostBody:  payload.PostBody,
 		UserID:    payload.UserID,
 	}
 
-	db, err := database.GetDbConnSql()
+	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, res.FailedDbConnMessage)
 	}
