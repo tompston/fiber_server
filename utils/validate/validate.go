@@ -41,31 +41,17 @@ func ValidatorErrors(err error) map[string]string {
 }
 
 // run the sent payload through 2 functions
-// 1. the BodyParser will check if the sent JSON object is correct
+// 1. the BodyParser will check if the sent json object is correct
 // 2 the NewValidator will check if the validate fields for the passed down struct are valid.
 func ValidatePayload(c *fiber.Ctx, payload interface{}) (err error) {
 
 	if err := c.BodyParser(payload); err != nil {
 		return err
 	}
+
 	if err := NewValidator().Struct(payload); err != nil {
 		return err
 	}
 
 	return err
 }
-
-// func ValidateUserDto(c *fiber.Ctx, dto *UserParams) (err error) {
-// 	if err := c.BodyParser(dto); err != nil {
-// 		return err
-// 	}
-// 	if err := val.NewValidator().Struct(dto); err != nil {
-// 		return err
-// 	}
-// 	return err
-// }
-
-//// inside the controller function
-// if err := ValidateUserDto(c, payload); err != nil {
-// 	return res.ResponseError(c, nil, err.Error()) // doesn't work
-// }
