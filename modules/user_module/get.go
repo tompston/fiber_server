@@ -2,8 +2,8 @@ package user_module
 
 import (
 	"context"
+	"gofiber_server/db/sqlc"
 	"gofiber_server/settings/database"
-	"gofiber_server/sqlc/sqlc"
 	"gofiber_server/utils/auth"
 	"gofiber_server/utils/pagitation"
 	res "gofiber_server/utils/response"
@@ -14,6 +14,7 @@ import (
 
 func GetAllUsers(c *fiber.Ctx) error {
 
+	// get db conn
 	db, err := database.GetDbConn()
 	if err != nil {
 		return res.ResponseError(c, nil, err.Error())
@@ -85,6 +86,7 @@ func GetUserCookie(c *fiber.Ctx) error {
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 var raw = JSON.stringify({
+  "email": "verycreative@mail.com",
   "username": "my-username",
   "password": "my-password"
 });

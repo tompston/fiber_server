@@ -65,6 +65,7 @@ func GetPagitationParams(c *fiber.Ctx, BASE string) (PagitationParams, error) {
 
 // return 3 strings that are pagitation links
 func GeneratePagitationLinks(BASE string, prev int, curr int, next int) PagitationLinks {
+
 	prev_page_path := BASE + PageQueryString(fmt.Sprint(prev))
 	curr_page_path := BASE + PageQueryString(fmt.Sprint(curr))
 	next_page_path := BASE + PageQueryString(fmt.Sprint(next))

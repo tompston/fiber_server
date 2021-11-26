@@ -12,8 +12,8 @@ ORDER BY created_at DESC
 LIMIT $1 OFFSET $2;
 
 -- name: CreateUser :one
-INSERT INTO users   ( username, password ) 
-VALUES              ( $1, $2 )
+INSERT INTO users   ( email, username, password ) 
+VALUES              ( $1, $2, $3 )
 RETURNING *;
 
 -- name: DeleteUser :exec

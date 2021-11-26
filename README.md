@@ -35,18 +35,45 @@ docker
      # remove
      docker image rm gofiber
 
-## Notes
 
-the `using_ent` branch has an example of ent ORM + docker-compose
+## Migrations - dbmate
+
+[dbmate](https://github.com/amacneil/dbmate) is used to run the migrations
+
+     # initialize a new thing
+     # before doing so, create a new DATABASE_URL that has the string with the url.
+     dbmate new MIGRATION_NAME
+
+     # after that, add all of the sql stuff into the file.
+
+     # evertyhing under the "-- migrate:up" will be triggered when you run 
+     dbmate up
+
+     # evertyhing under the "-- migrate:down" will be triggered when you run 
+     dbmate down
+
+## Auto reload with [reflex](https://github.com/cespare/reflex) example 
+
+     
+     chmod +x reflex
+     ./reflex -r '\.go' -s -- sh -c "go run main.go"
+
 
 ## Todos
 
-- setting up migrations with one of the packages mentioned in sqlc docs.
-
-- add constraint to username to check if it doesn't have charaters like '/'. Check regex stuff.
 - add new module -> Comment
-- add email field for user?
 - Check how Keyset Pagination works
 - Implement the full flow for JWT auth.
 - Check the gofiber examples repo, add ouath maybe
-- check if you can make that postman thing as an editable online version
+
+## Other
+
+the `using_ent` branch has an example of ent ORM + docker-compose
+
+<!-- 
+
+# cd into the psql shell
+sudo -u postgres psql -U postgres
+\c test_db
+
+ -->

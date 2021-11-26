@@ -2,8 +2,8 @@ package post_module
 
 import (
 	"context"
+	"gofiber_server/db/sqlc"
 	"gofiber_server/settings/database"
-	"gofiber_server/sqlc/sqlc"
 	"gofiber_server/utils/pagitation"
 	res "gofiber_server/utils/response"
 	"strconv"

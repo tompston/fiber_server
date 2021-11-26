@@ -25,7 +25,7 @@ WHERE post_id = $1;
 -- name: UpdatePostTitle :one
 UPDATE posts 
 SET post_title = $1
-WHERE post_id = $2
+WHERE post_id =  $2
 RETURNING posts.post_id, posts.updated_at, posts.post_title;
 
 -- name: UpdatePostBody :one
