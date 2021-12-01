@@ -17,23 +17,16 @@
 locally
 
      # change the .env variables
-     # create the database + populate it with the data that is located in the /sqlc/placeholder.sql file
-
+     # install dbmate and run migrations with -> dbmate up
      go run main.go
 
 docker
 
-     # build the image
-     docker build -t gofiber .
-
-     # run and publish with the name of gofiber
-     docker run --publish 5000:5000 --name gofiber gofiber
-
-     # stop
-     docker stop gofiber
-
-     # remove
-     docker image rm gofiber
+     
+     docker build -t gofiber .                                   # build the image
+     docker run --publish 5000:5000 --name gofiber gofiber       # run and publish with the name of gofiber
+     docker stop gofiber                                         # stop
+     docker image rm gofiber                                     # remove
 
 
 ## Migrations - dbmate
@@ -41,7 +34,7 @@ docker
 [dbmate](https://github.com/amacneil/dbmate) is used to run the migrations
 
      # initialize a new thing
-     # before doing so, create a new DATABASE_URL that has the string with the url.
+     # before doing so, create a new DATABASE_URL variable in .env that has the string with the url
      dbmate new MIGRATION_NAME
 
      # after that, add all of the sql stuff into the file.
