@@ -2,12 +2,12 @@ package user_module
 
 import (
 	"context"
-	"gofiber_server/db/sqlc"
-	"gofiber_server/settings/database"
-	"gofiber_server/utils/auth"
-	res "gofiber_server/utils/response"
+	"fiber_server/db/sqlc"
+	"fiber_server/settings/database"
+	"fiber_server/utils/auth"
+	res "fiber_server/utils/response"
 
-	val "gofiber_server/utils/validate"
+	val "fiber_server/utils/validate"
 
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"

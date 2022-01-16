@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fiber_server/router"
+	"fiber_server/settings"
 	"fmt"
-	"gofiber_server/router"
-	"gofiber_server/settings"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"

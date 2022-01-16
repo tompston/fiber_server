@@ -1,8 +1,8 @@
 package validate
 
 import (
+	res "fiber_server/utils/response"
 	"fmt"
-	res "gofiber_server/utils/response"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"

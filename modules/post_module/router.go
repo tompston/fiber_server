@@ -1,8 +1,8 @@
 package post_module
 
 import (
+	"fiber_server/settings"
 	"fmt"
-	"gofiber_server/settings"
 
 	"github.com/gofiber/fiber/v2"
 )

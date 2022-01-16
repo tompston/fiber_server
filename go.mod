@@ -1,4 +1,4 @@
-module gofiber_server
+module fiber_server
 
 go 1.16
 

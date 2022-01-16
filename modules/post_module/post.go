@@ -2,10 +2,10 @@ package post_module
 
 import (
 	"context"
-	"gofiber_server/db/sqlc"
-	"gofiber_server/settings/database"
-	res "gofiber_server/utils/response"
-	"gofiber_server/utils/validate"
+	"fiber_server/db/sqlc"
+	"fiber_server/settings/database"
+	res "fiber_server/utils/response"
+	"fiber_server/utils/validate"
 
 	"github.com/gofiber/fiber/v2"
 )

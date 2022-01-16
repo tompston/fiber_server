@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"gofiber_server/utils/auth"
-	"gofiber_server/utils/response"
+	"fiber_server/utils/auth"
+	"fiber_server/utils/response"
 
 	"github.com/gofiber/fiber/v2"
 )

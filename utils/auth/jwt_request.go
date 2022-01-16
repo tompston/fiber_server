@@ -1,8 +1,8 @@
 package auth
 
 import (
+	"fiber_server/settings"
 	"fmt"
-	"gofiber_server/settings"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"

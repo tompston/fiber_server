@@ -1,8 +1,8 @@
 package pagitation
 
 import (
+	"fiber_server/settings"
 	"fmt"
-	"gofiber_server/settings"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"

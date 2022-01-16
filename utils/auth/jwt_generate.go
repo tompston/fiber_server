@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"gofiber_server/settings"
+	"fiber_server/settings"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"

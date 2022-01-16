@@ -3,8 +3,9 @@
 package router
 
 import (
-	"gofiber_server/modules/post_module"
-	"gofiber_server/modules/user_module"
+	"fiber_server/modules/comment_module"
+	"fiber_server/modules/post_module"
+	"fiber_server/modules/user_module"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -17,5 +18,6 @@ func ProjectModules(app *fiber.App) {
 	// pass down the app + the api prefix
 	user_module.Routes(app, api)
 	post_module.Routes(app, api)
+	comment_module.Routes(app, api)
 
 }

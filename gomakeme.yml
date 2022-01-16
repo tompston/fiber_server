@@ -1,0 +1,8 @@
+#  move  this file one level back and run gomakeme
+
+project_info:
+  go_version: 1.16
+  name: "fiber_server"
+  port: 5000
+  include_db_snippet: true
+modules: [User, Post, Comment]

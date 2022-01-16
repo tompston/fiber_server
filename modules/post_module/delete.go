@@ -2,9 +2,9 @@ package post_module
 
 import (
 	"context"
-	"gofiber_server/db/sqlc"
-	"gofiber_server/settings/database"
-	res "gofiber_server/utils/response"
+	"fiber_server/db/sqlc"
+	"fiber_server/settings/database"
+	res "fiber_server/utils/response"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"

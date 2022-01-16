@@ -23,7 +23,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 
-WORKDIR /opt/gofiber_server
+WORKDIR /opt/fiber_server
 
 # Copy the Pre-built binary file from the previous stage + .env file
 COPY --from=builder /gofiber/main .

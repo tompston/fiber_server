@@ -1,7 +1,7 @@
 package user_module
 
 import (
-	res "gofiber_server/utils/response"
+	res "fiber_server/utils/response"
 
 	"github.com/gofiber/fiber/v2"
 )

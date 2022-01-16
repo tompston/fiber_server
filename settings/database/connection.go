@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"gofiber_server/settings"
+	"fiber_server/settings"
 
 	_ "github.com/lib/pq"
 )
