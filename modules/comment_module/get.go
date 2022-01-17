@@ -1,24 +1,25 @@
 package comment_module
 
 import (
-	"fiber_server/utils/response"
+	res "fiber_server/utils/response"
+
+	"fiber_server/settings/database"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	"strconv"
-	"fiber_server/settings/database"
 )
 
 func GetComments(c *fiber.Ctx) error {
-	
+
 	// get db connection
 	db, err := database.GetDbConn()
 	if err != nil {
-		return response.ResponseError(c, nil, err.Error())
+		return res.ResponseError(c, nil, err.Error())
 	}
 	defer db.Close()
 	_ = db
 
-	return response.ResponseSuccess(c, data, response.FoundManyMessage(module_name))
+	return res.ResponseSuccess(c, data, res.FoundManyMessage(module_name))
 }
 
 func GetComment(c *fiber.Ctx) error {
@@ -26,17 +27,17 @@ func GetComment(c *fiber.Ctx) error {
 	// validate url param
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
-		return response.ResponseError(c, nil, response.ParamIsNotIntMessage)
+		return res.ResponseError(c, nil, res.ParamIsNotIntMessage)
 	}
 	_ = id
-	
+
 	// get db connection
 	db, err := database.GetDbConn()
 	if err != nil {
-		return response.ResponseError(c, nil, err.Error())
+		return res.ResponseError(c, nil, err.Error())
 	}
 	defer db.Close()
 	_ = db
 
-	return response.ResponseSuccess(c, data, response.FoundOneMessage(module_name))
+	return res.ResponseSuccess(c, data, res.FoundOneMessage(module_name))
 }

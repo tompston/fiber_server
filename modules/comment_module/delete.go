@@ -1,7 +1,7 @@
 package comment_module
 
 import (
-	"fiber_server/utils/response"
+	res "fiber_server/utils/response"
 
 	"fiber_server/settings/database"
 	"strconv"
@@ -14,17 +14,17 @@ func DeleteComment(c *fiber.Ctx) error {
 	// validate url param
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
-		return response.ResponseError(c, nil, response.ParamIsNotIntMessage)
+		return res.ResponseError(c, nil, res.ParamIsNotIntMessage)
 	}
 	_ = id
 
 	// get db connection
 	db, err := database.GetDbConn()
 	if err != nil {
-		return response.ResponseError(c, nil, err.Error())
+		return res.ResponseError(c, nil, err.Error())
 	}
 	defer db.Close()
 	_ = db
 
-	return response.ResponseSuccess(c, data, response.DeletedMessage(module_name))
+	return res.ResponseSuccess(c, data, res.DeletedMessage(module_name))
 }

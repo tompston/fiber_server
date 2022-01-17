@@ -1,9 +1,11 @@
 -- name: GetUser :one
-SELECT user_id, username, created_at FROM users
+SELECT user_id, username, created_at 
+FROM users
 WHERE user_id = $1 LIMIT 1;
 
 -- name: LoginUser :one
-SELECT user_id, username, created_at, password FROM users
+SELECT user_id, username, created_at, password 
+FROM users
 WHERE username = $1 LIMIT 1;
 
 -- name: GetUsers :many
